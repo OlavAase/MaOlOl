@@ -1,0 +1,1 @@
+#Her lager vi classene med spillerne og computerne
