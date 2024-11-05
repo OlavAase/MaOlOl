@@ -10,9 +10,8 @@ class Spiller:
         return f"Dette er {self.navn}, han har {len(self.antall_terninger)} terninger og er nummer {self.nummer} i rekka "
 
     def kast_terning(self):
-        self.antall_terninger = []
-        for i in range(6):
-            self.antall_terninger.append(rd(1,6))
+        for i in range(len(self.antall_terninger)):
+            self.antall_terninger[i] = (rd(1,6))
         return self.antall_terninger
 
 
