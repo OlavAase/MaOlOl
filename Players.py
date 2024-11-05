@@ -10,7 +10,7 @@ class Spiller:
         self.flest_av_terninger = flest_av_terninger
 
     def __str__(self):
-        return f"Dette er {self.navn}, han har {len(self.antall_terninger)} terninger og er nummer {self.nummer} i rekka "
+        return f"Dette er {self.navn}, han har {len(self.antall_terninger)} terninger og er nummer {self.nummer} i rekka og han har flest {self.flest_av_terninger}"
 
     def kast_terning(self):
         for i in range(len(self.antall_terninger)):
@@ -23,8 +23,8 @@ class Spiller:
             print(self.antall_terninger.count(i)) # printer hvor mange av hvert tall det er
             if self.antall_terninger.count(i) >= antall_av_terning: 
                 antall_av_terning = self.antall_terninger.count(i) #oppdaterer hvor mange det tallet som er flest er
-                self.flest_av_terning = i #lagrer hvilket tall det er flest av
-        return f"Det er flest {self.flest_av_terning}ere og det er {self.antall_terninger.count(self.flest_av_terning) + self.antall_terninger.count(1)} {self.flest_av_terning}ere" #returnerer det tallet det er flest av og legger til enere
+                self.flest_av_terninger = i #lagrer hvilket tall det er flest av
+        return f"Det er flest {self.flest_av_terninger}ere og det er {self.antall_terninger.count(self.flest_av_terninger) + self.antall_terninger.count(1)} {self.flest_av_terninger}ere" #returnerer det tallet det er flest av og legger til enere
         
 
 
