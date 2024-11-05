@@ -18,9 +18,14 @@ class Spiller:
         return self.antall_terninger
     
     def telling_terning(self):
-        for i in range(1, 7):
-            self.flest_av_terninger = self.antall_terninger.count(i)
-            print(self.flest_av_terninger)
+        antall_av_terning = 0 #variabel som lagrer hvor mange det tallet det er flest av
+        for i in range(2, 7): #teller alle tall utenom 1
+            print(self.antall_terninger.count(i)) # printer hvor mange av hvert tall det er
+            if self.antall_terninger.count(i) >= antall_av_terning: 
+                antall_av_terning = self.antall_terninger.count(i) #oppdaterer hvor mange det tallet som er flest er
+                self.flest_av_terning = i #lagrer hvilket tall det er flest av
+        return f"Det er flest {self.flest_av_terning}ere og det er {self.antall_terninger.count(self.flest_av_terning) + self.antall_terninger.count(1)} {self.flest_av_terning}ere" #returnerer det tallet det er flest av og legger til enere
+        
 
 
 
