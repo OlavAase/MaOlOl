@@ -40,7 +40,7 @@ def kanReglene():
     
 
 def gamestart():
-    print("HEi velkommen til Rafle!")
+    print("HEI! velkommen til Rafle!")
     spiltFør()
     
     
