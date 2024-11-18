@@ -28,7 +28,8 @@ def kanReglene():
               "når en spiller har sin tur kan han enten høyne eller ikke tro på den tidligere spilleren. "
               "Runden forstetter helt til noen ikke blir trodd på. Da telles terningene. Den spilleren "
               "som trodde feil mister en terning og så starter neste runde. Spilleren som har igjen "
-              "terninger når de andre er tomme vinner.\n\nNB: Bla opp for å lese alle reglene\n\n\n"
+              "terninger når de andre er tomme vinner.\n\n-----------------------------------"
+              "\nNB: Bla opp for å lese alle reglene\n-----------------------------------\n\n\n"
               )
         spiltFør()
     elif spiltfør == "ja":
