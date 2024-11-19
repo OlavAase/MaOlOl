@@ -11,8 +11,7 @@ class Player:
     def roll_dice(self):
         for i in range(self.dice_count):
             self.dice[i] = rd(1,6)
-        if self.is_human == True:
-            return self.dice
+        
     
     def loose_dice(self):
         if self.dice_count > 0:
@@ -20,11 +19,15 @@ class Player:
             self.dice.pop()
         return self.dice_count
 
+    def show_dice(self):
+        if self.is_human == True:
+            return self.dice
+
 testplayer = Player("Test spiller", 1)
 print(testplayer.roll_dice())
+print(testplayer.show_dice())
 print(testplayer.loose_dice())
-print(testplayer.roll_dice())
-           
+
         
 
         
