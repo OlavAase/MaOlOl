@@ -1,6 +1,6 @@
 ###Her 
 
-from player import Spiller, Computers
+from player import Player
 from random import randint as rd
 
 
