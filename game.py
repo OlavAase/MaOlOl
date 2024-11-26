@@ -8,7 +8,10 @@ class Game:
 
     def guess(self, face, amount):
         if face > self.current_guess["die_face"] or amount > self.current_guess["amount_of_dice"]:
-            self.current_guess["die_face"] = face
+            if face <= 6:
+                self.current_guess["die_face"] = face
+            else:
+                return "Ingen terningside er større en 6"
             self.current_guess["amount_of_dice"] = amount
             return self.current_guess
         else:
@@ -16,4 +19,4 @@ class Game:
 
 
 player1 = Game("player1")
-print(player1.guess(4, 6))
+print(player1.guess(6, 7))
