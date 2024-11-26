@@ -5,6 +5,7 @@ class Game:
             "die_face": 4,
             "amount_of_dice": 7,
         }
+        self.current_player_index = 0
 
     def guess(self, face, amount):
         if face > self.current_guess["die_face"] or amount > self.current_guess["amount_of_dice"]:
@@ -16,7 +17,10 @@ class Game:
             return self.current_guess
         else:
             return "Ble ikke akseptert"
-
+        
+    def next_turn(self):
+        self.current_player_index = (self.current_player_index + 1) % len(self.players)
+        return self.players[self.current_player_index]     
 
 player1 = Game("player1")
 print(player1.guess(6, 7))
