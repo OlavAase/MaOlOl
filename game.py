@@ -31,11 +31,11 @@ class Game:
         
         if total_matching >= self.current_guess["amount_of_dice"]:
             challenger.loose_dice()  # Fixed method name to "loose_dice" instead of "lose_dice"
-            result = f"{challenger.name} challenged and loses a die!"
+            result = f"It was {total_matching} of this dice! {challenger.name} challenged and loses a die!"
         else:
             previous_player_index = (self.current_player_index - 1) % len(self.players)
             self.players[previous_player_index].loose_dice()  # Fixed method name to "loose_dice"
-            result = f"{self.players[previous_player_index].name} got challenged and loses a die!"
+            result = f"It was {total_matching} of this dice! {self.players[previous_player_index].name} got challenged and loses a die!"
         return result
 players = [
     Player("player1", is_human=True),
