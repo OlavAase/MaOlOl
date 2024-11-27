@@ -22,14 +22,9 @@ class Player:
         if self.is_human == True:
             return self.dice
         else:
-            return self.dice
+            return "Computer terninger er gjemt"
 
     
-
-testplayer = Player("Test spiller", 1)
-print(testplayer.roll_dice())
-print(testplayer.show_dice())
-print(testplayer.loose_dice())
 
         
 

@@ -1,3 +1,7 @@
+from player import Player
+from random import randint as rd
+from game import Game
+
 spiltfør = 0
 
 def spiltFør():
@@ -33,16 +37,15 @@ def kanReglene():
               )
         spiltFør()
     elif spiltfør == "ja":
-        print("Start")
+        print("Spillet Starter!")
     else:
         print("\nDet du skrev inn ble ikke akseptert. Venligst Svar ja eller nei.")
         spiltFør()
     
 
 def gamestart():
+    print("\n")
     print("HEI! velkommen til Rafle!")
     spiltFør()
     
     
-
-gamestart()
