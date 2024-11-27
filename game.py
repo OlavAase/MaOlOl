@@ -22,8 +22,14 @@ class Game:
             return "Ble ikke akseptert"
         
     def next_turn(self):
-        self.current_player_index = (self.current_player_index + 1) % len(self.players)
-        return self.players[self.current_player_index]     
+        while True:
+            self.current_player_index = (self.current_player_index + 1) % len(self.players)
+            return self.players[self.current_player_index]   
+
+            if current_player.dice:  
+               return current_player  
+    
+
     
     def challenge(self):
         total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) for player in self.players)
@@ -70,16 +76,17 @@ while var == True:
     while runde == True:
         game.next_turn()
         current_player = game.players[game.current_player_index]
-        #print(current_player.name)
-        if current_player.is_human == True:
-            action = str(input("Do you want to guess (G) or challenge (C)?")).lower()
-            if action == "g":
-                face = int(input("Hvilken terningside vil du tippe på? (1-6)"))
-                amount = int(input("Hvor mange av den terningen tror du at det er?"))
-                game.guess(face, amount)
-            else:
-                print(game.challenge())
-                runde = False
+        f"{current_player.name}s tur"
+        if current_player.dice:
+            if current_player.is_human == True:
+                action = str(input("Do you want to guess (G) or challenge (C)?")).lower()
+                if action == "g":
+                    face = int(input("Hvilken terningside vil du tippe på? (1-6)"))
+                    amount = int(input("Hvor mange av den terningen tror du at det er?"))
+                    game.guess(face, amount)
+                else:
+                    print(game.challenge())
+                    runde = False
         else:       
             if game.current_guess["die_face"] == 0 and game.current_guess["amount_of_dice"] == 0:
                 # Ensure the computer doesn't guess before the human makes a valid guess
@@ -95,8 +102,16 @@ while var == True:
                 else:
                     print(game.challenge())
                     runde = False
+    else:  
+            print(f"{current_player.name} har 0 terninger og kan ikke gjøre noe denne runden.")
+            runde = False  
+
+    while not any(player.dice for player in players):  
+            current_player = game.next_turn()
+            if current_player.dice:  
+                break
             
-        print(game.current_guess)
+    print(game.current_guess)
 
 
 
