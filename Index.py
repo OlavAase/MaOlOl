@@ -3,7 +3,7 @@
 from player import Player
 from random import randint as rd
 from game import Game
-from gamestartfunksjon import spiltFør, kanReglene, gamestart
+from gamestartfunksjon import gamestart
 
 players = [
     Player("Player1", is_human = True),
