@@ -32,12 +32,12 @@ class Game:
         if total_matching >= self.current_guess["amount_of_dice"]:
             challenger.loose_dice()  
             result = f"{challenger.name} challenged and loses a die!"
-            result = f"It was {total_matching} of this dice! {challenger.name} challenged and loses a die!"
+            result = f"Det var {total_matching} av denne terningen! {challenger.name} challenga og mister en terning!"
         else:
             previous_player_index = (self.current_player_index - 1) % len(self.players)
             self.players[previous_player_index].loose_dice()  
             result = f"{self.players[previous_player_index].name} got challenged and loses a die!"
-            result = f"It was {total_matching} of this dice! {self.players[previous_player_index].name} got challenged and loses a die!"
+            result = f"Det var {total_matching} av denne terningen! {self.players[previous_player_index].name} ble challenga og mister en terning!"
         return result
     
   
