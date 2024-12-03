@@ -37,7 +37,11 @@ def kanReglene():
               )
         spiltFør()
     elif spiltfør == "ja":
-        print("Spillet Starter!")
+        print(
+            "----------------\n"
+            "Spillet Starter!\n"
+            "----------------"
+            )
     else:
         print("\nDet du skrev inn ble ikke akseptert. Venligst Svar ja eller nei.")
         spiltFør()
