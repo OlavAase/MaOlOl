@@ -10,14 +10,20 @@ class Game:
         }
         self.current_player_index = 0
 
+#Gjette funksjon som passer på at du gjetter en terningside mellom 2 og 6 og at du enten tipper høyere terningside eller terning antall
     def guess(self, face, amount):  
         
-        while face > 6 or face < 2:
+        while face > 6 or face < 2: #Passer på at du tipper terningside mellom 2 og 6
             face = int(input("Fins ikke terningside du kan tippe på større en 6 eler mindre en 2. Hvilken terningside vil du tippe på? (1-6)"))
-        self.current_guess["die_face"] = face
-
-        while amount < self.current_guess["amount_of_dice"] or amount <= 0:
-            amount = int(input(f"Du må tippe et høyere antall terninger. Hvor mange {self.current_guess["die_face"]}ere tror du at det er?"))
+        
+        if face <= self.current_guess["die_face"]:
+            while amount <= self.current_guess["amount_of_dice"] or amount <= 0: 
+                amount = int(input(f"Du må tippe et høyere antall terninger. Hvor mange {self.current_guess["die_face"]}ere tror du at det er?"))
+        else:
+            while amount < self.current_guess["amount_of_dice"] or amount <= 0: 
+                amount = int(input(f"2Du må tippe et høyere antall terninger. Hvor mange {self.current_guess["die_face"]}ere tror du at det er?"))
+        
+        self.current_guess["die_face"] = face 
         self.current_guess["amount_of_dice"] = amount
                         
         return self.current_guess
