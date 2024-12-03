@@ -14,12 +14,21 @@ class Game:
         if face > self.current_guess["die_face"] or amount > self.current_guess["amount_of_dice"]:
             if face <= 6:
                 self.current_guess["die_face"] = face
+                self.current_guess["amount_of_dice"] = amount
             else:
-                return "Ingen terningside er større en 6"
-            self.current_guess["amount_of_dice"] = amount
+                while face > 6:
+                    face = int(input("Fins ikke terningside større en 6. Hvilken terningside vil du tippe på? (1-6)"))
+                self.current_guess["die_face"] = face
+
+                while amount <= self.current_guess["amount_of_dice"]:
+                    amount = int(input(f"Du må tippe et høyere antall terninger. Hvor mange {self.current_guess["die_face"]}ere tror du at det er?"))
+                self.current_guess["amount_of_dice"] = amount
+                    
+                
+            
             return self.current_guess
         else:
-            return "Ble ikke akseptert"
+            print("Ble ikke akseptert")
         
     def next_turn(self):
         self.current_player_index = (self.current_player_index + 1) % len(self.players)
@@ -52,18 +61,23 @@ class Game:
             amount = int(input("Hvor mange av den terningen tror du at det er?"))
             self.guess(face, amount)
         else:
-            action =  str(input("Do you want to guess (G) or challenge (C)?")).lower()
-            if action == "g" or action == "c":
-                if action == "g":
-                    face = int(input("Hvilken terningside vil du tippe på? (1-6)"))
-                    amount = int(input("Hvor mange av den terningen tror du at det er?"))
-                    print("player guess")
-                    self.guess(face, amount)
-                    
-                else:
-                    print("challenge")
-                    print(self.challenge())
-                    challenge_happened = True
+            while True:
+                action =  str(input("Do you want to guess (G) or challenge (C)?")).lower()
+                if action == "g" or action == "c":
+                    if action == "g":
+                        face = int(input("Hvilken terningside vil du tippe på? (1-6)"))
+                        amount = int(input("Hvor mange av den terningen tror du at det er?"))
+                        print("player guess")
+                        print(self.guess(face, amount))
+                        return False      
+                    else:
+                        print("challenge")
+                        print(self.challenge())
+                        challenge_happened = True
+                        return False
+                print("Det du skrev ble ikke akseptert. Svar G eller C")
+
+
             return challenge_happened
                
             

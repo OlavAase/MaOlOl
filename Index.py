@@ -44,7 +44,6 @@ def gameloop():
             else:
                 if game.current_guess["die_face"] == 0 and game.current_guess["amount_of_dice"] == 0:
                     game.guess(2, 1) 
-                    print("test gjett") 
                 else:
                     computer_action = rd(1,2)
                     if computer_action == 1:
