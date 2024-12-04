@@ -10,6 +10,10 @@ class Game:
         }
         self.current_player_index = 0
 
+    def total_dice_left(self):
+        total_dice = sum(player.dice_count for player in self.players)
+        return total_dice
+
 #Gjette funksjon som passer på at du gjetter en terningside mellom 2 og 6 og at du enten tipper høyere terningside eller terning antall
     def guess(self, face, amount):  
         
@@ -34,17 +38,15 @@ class Game:
         return self.players[self.current_player_index]     
     
     def challenge(self):
-        total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) for player in self.players)
+        total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) + player.dice.count(2) for player in self.players)
         challenger = self.players[self.current_player_index]
         
         if total_matching >= self.current_guess["amount_of_dice"]:
             challenger.loose_dice()  
-            result = f"{challenger.name} challenged and loses a die!"
             result = f"Det var {total_matching} av denne terningen! {challenger.name} challenga og mister en terning!"
         else:
             previous_player_index = (self.current_player_index - 1) % len(self.players)
             self.players[previous_player_index].loose_dice()  
-            result = f"{self.players[previous_player_index].name} got challenged and loses a die!"
             result = f"Det var {total_matching} av denne terningen! {self.players[previous_player_index].name} ble challenga og mister en terning!"
         return result
     

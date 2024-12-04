@@ -6,8 +6,9 @@ from game import Game
 from gamestartfunksjon import gamestart
 
 players = [
-    Player("Player1", is_human = True),
-    Player("Computer", is_human = False),
+    Player("Player1", is_human = True,),
+    Player("Computer", is_human = False, is_good= False),
+    Player("Bot", is_human = False, is_good = True),
 ]
 game = Game(players)
 
@@ -59,7 +60,11 @@ def gameloop():
                     gjett += 1
                     print(f"{current_player.name} gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere ")
                 else:
-                    computer_action = rd(1,2)
+                    if current_player.is_good == False:
+                        computer_action = rd(1,2)
+                    elif current_player.is_good:
+                        if game.current_guess["amount_of_dice"] < (game.total_dice_left() / 3):
+                            computer_action = 1
                     if computer_action == 1:
                         gjett += 1
                         amount_or_face = rd(1,2)
@@ -78,6 +83,8 @@ def gameloop():
                         "die_face": 0,
                         "amount_of_dice": 0,
         }
+            
+                        
                         gjett = 0
                         
             print("\n")

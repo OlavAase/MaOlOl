@@ -1,11 +1,12 @@
 from random import randint as rd
 
 class Player:
-    def __init__(self, name, dice_count=5, is_human=True):
+    def __init__(self, name, dice_count=5, is_human=True, is_good = True,):
         self.name = name
         self.dice_count = dice_count
         self.dice = [0]*dice_count
         self.is_human = is_human
+        self.is_good = is_good
     
     def roll_dice(self):
         for i in range(self.dice_count):
