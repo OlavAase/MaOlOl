@@ -70,12 +70,12 @@ def gameloop():
                         amount_or_face = rd(1,2)
                         if amount_or_face == 1:
                             game.guess(game.current_guess["die_face"] + 1, game.current_guess["amount_of_dice"])
-                            print(f"Computer gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
+                            print(f"Det ble gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
                         else: 
                             game.guess(game.current_guess["die_face"], game.current_guess["amount_of_dice"] + 1)
-                            print(f"Computer gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
+                            print(f"Det ble gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
                     else:
-                        print("Computer challenger")
+                        print("Det ble utfordret!")
                         print(f"Dette var computer sine terninger: {current_player.dice}")
                         round_ongoing = False
                         print(game.challenge())
