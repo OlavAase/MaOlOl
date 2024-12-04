@@ -68,7 +68,7 @@ def gameloop():
                     if computer_action == 1:
                         gjett += 1
                         amount_or_face = rd(1,2)
-                        if amount_or_face == 1:
+                        if amount_or_face == 1 and game.current_guess["die_face"] < 6:
                             game.guess(game.current_guess["die_face"] + 1, game.current_guess["amount_of_dice"])
                             print(f"Det ble gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
                         else: 
