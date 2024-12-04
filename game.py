@@ -39,7 +39,7 @@ class Game:
     
        #funkskjon for utfordringen
     def challenge(self):
-        total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) + player.dice.count(2) for player in self.players)
+        total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) for player in self.players)
         challenger = self.players[self.current_player_index]
         
         if total_matching >= self.current_guess["amount_of_dice"]:
@@ -153,7 +153,8 @@ def gameloop():
                             print(f"Det ble gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
                     else:
                         print("Det ble utfordret!")
-                        print(f"Dette var computer sine terninger: {current_player.dice}")
+                        for player in players:
+                            print(f"Dette var {player.name} sine terninger: {player.dice}")
                         round_ongoing = False
                         print(game.challenge())
                         game.current_guess  = {
