@@ -3,12 +3,13 @@ from random import randint as rd
 from game import Game
 
 spiltfør = 0
-
+#funskjon som spør deg om du har spilt før.
 def spiltFør():
     global spiltfør
     spiltfør = str(input("Kan du reglene for rafle? (Svar ja/nei) "))
     kanReglene()
-    
+
+# funskjon som sjekker hva du svarte på spørsmålet, og som gir deg reglene dersm du ikke kunne dem. 
 def kanReglene():
     if spiltfør == "nei":
         print("\n------------Rafle Regler-------------\n\nMÅLET MED SPILLET:\n"
@@ -36,12 +37,14 @@ def kanReglene():
               "\nNB: Bla opp for å lese alle reglene\n-----------------------------------\n\n\n"
               )
         spiltFør()
+    #starter spillet om du kan reglene
     elif spiltfør == "ja":
         print(
             "----------------\n"
             "Spillet Starter!\n"
             "----------------"
             )
+    #sikrer for feil input
     else:
         print("\nDet du skrev inn ble ikke akseptert. Venligst Svar ja eller nei.")
         spiltFør()

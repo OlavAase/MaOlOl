@@ -43,6 +43,7 @@ class Game:
         total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) for player in self.players)
         challenger = self.players[self.current_player_index]
         
+        #sjekker om antallet av den bestemte terningen er større eller lik hva som ble gjettet og gir resultat etter hvem som vinner utfordringen
         if total_matching >= self.current_guess["amount_of_dice"]:
             challenger.loose_dice()
             result = f"Det var {total_matching} av denne terningen! {challenger.name} utfordret og mister en terning!"
@@ -56,7 +57,7 @@ class Game:
         
 
     
-          #ser om utfordreren vinner
+          #funksjon for å la brukeren gjette antall av en bestemt terning
     def action_output(self):
         challenge_happened = False
         if self.current_guess["die_face"] == 0 and self.current_guess["amount_of_dice"] == 0:
@@ -64,6 +65,7 @@ class Game:
             amount = int(input("Hvor mange av den terningen tror du at det er?"))
             self.guess(face, amount)
         else:
+            #dersom det har blitt gjettet før, får du muligheten til å gjette høyere eller utfordre
             while True:
                 action =  str(input("Vil du gjette høyere (G) eller utfordre (U)?")).lower()
                 if action == "g" or action == "u":
@@ -84,7 +86,7 @@ class Game:
 
             return challenge_happened
                
-            
+#definerer spillere hentet fra player.py og sier om de er mennesker eller datamaskiner     
 players = [
     Player("Player1", is_human = True,),
     Player("Computer", is_human = False, is_good= False),
@@ -92,7 +94,7 @@ players = [
 ]
 game = Game(players)
 
-
+#selve systemet for rundene i spillet
 def gameloop():
     print("\n")
 
@@ -100,6 +102,7 @@ def gameloop():
     round_ongoing = True
     spillrunde = 0
     gjett = 0
+    #når runden starter trilles terningene og brukeren får oppgitt sine terninger
     while game_ongoing == True:
         for player in players:
             player.roll_dice()
@@ -117,6 +120,7 @@ def gameloop():
                 f"Det er spillrunde {spillrunde} og det har skjedd {gjett} gjett i den spillrunden\n"
                 "---------------------------------------------------------------\n"
                 )
+            #time. sleep() er en måte å delaye hva som printes i terminalen. noe som gjør det lettere for spilleren å få med seg hva som skjer i spillet.
             time. sleep(2)
             current_player = game.players[game.current_player_index]
             print(f"Det er {current_player.name} sin tur")
@@ -126,6 +130,8 @@ def gameloop():
                 time. sleep(2)
                 challenged_happened = game.action_output()
                 gjett += 1
+
+                #avslutter runden dersom det har skjedd en utfordring
                 if challenged_happened:
                     gjett = 0
                     round_ongoing = False
@@ -142,14 +148,19 @@ def gameloop():
                     time. sleep(1)
                     print(f"{current_player.name} gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere ")
                 else:
+                    #is_good brukes for å skille mellom datamaskinene som er med i spillet og spillestilene deres
                     if current_player.is_good == False:
+                        #dersom boten ikke er god tar den et tilfeldig valg om å gjette eller utfordre.
                         computer_action = rd(1,2)
                     elif current_player.is_good:
+                        #den "gode" boten gjetter kun dersom det nåværende gjettet av antallet til terningen er mindre enn en tredjedel av alle terningene som fortsatt er med i spillet.
                         if game.current_guess["amount_of_dice"] < (game.total_dice_left() / 3):
                             computer_action = 1
+                    #action 1 er å gjette
                     if computer_action == 1:
                         gjett += 1
                         amount_or_face = rd(1,2)
+                        #forhindrer at botene ikke ka gjette ett høyere antall enn 6 på terningen
                         if amount_or_face == 1 and game.current_guess["die_face"] < 6:
                             game.guess(game.current_guess["die_face"] + 1, game.current_guess["amount_of_dice"])
                             print(f"Det ble gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
@@ -173,7 +184,7 @@ def gameloop():
                         gjett = 0
                         
             print("\n")
-
+            #knapp for å gå til nestemann i køen. gjør spillet mer oversiktlig for brukeren
             neste = input("trykk på (n) for å gå videre til nestemann")
             if neste == "n":
                 game.next_turn()
