@@ -1,5 +1,6 @@
 from player import Player
 from random import randint as rd
+import time
 
 class Game: 
     def __init__(self, players):
@@ -74,6 +75,7 @@ class Game:
                         break   
                     else:
                         print("oi oi oi vi har en utfordring")
+                        time. sleep(2)
                         print(self.challenge())
                         challenge_happened = True
                         break
@@ -115,11 +117,13 @@ def gameloop():
                 f"Det er spillrunde {spillrunde} og det har skjedd {gjett} gjett i den spillrunden\n"
                 "---------------------------------------------------------------\n"
                 )
+            time. sleep(2)
             current_player = game.players[game.current_player_index]
             print(f"Det er {current_player.name} sin tur")
             print(f"Nåverende gjett er {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere\n")
             if current_player.is_human == True:
                 print(f"Dette er {current_player.name} sine terninger: {current_player.dice}")
+                time. sleep(2)
                 challenged_happened = game.action_output()
                 gjett += 1
                 if challenged_happened:
@@ -135,6 +139,7 @@ def gameloop():
                 if game.current_guess["die_face"] == 0 and game.current_guess["amount_of_dice"] == 0:
                     game.guess(2, 1) 
                     gjett += 1
+                    time. sleep(1)
                     print(f"{current_player.name} gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere ")
                 else:
                     if current_player.is_good == False:
@@ -153,8 +158,10 @@ def gameloop():
                             print(f"Det ble gjetta {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere")
                     else:
                         print("Det ble utfordret!")
+                        time. sleep(2)
                         for player in players:
                             print(f"Dette var {player.name} sine terninger: {player.dice}")
+                            time. sleep(2)
                         round_ongoing = False
                         print(game.challenge())
                         game.current_guess  = {
@@ -166,7 +173,10 @@ def gameloop():
                         gjett = 0
                         
             print("\n")
-            game.next_turn()
+
+            neste = input("trykk på (n) for å gå videre til nestemann")
+            if neste == "n":
+                game.next_turn()
  
 
 
