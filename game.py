@@ -94,7 +94,7 @@ class Game:
                         time. sleep(2)
                         print(self.challenge())
                         challenge_happened = True
-                    break
+                        break
                 print("Det du skrev ble ikke akseptert. Svar G eller U")
 
 
