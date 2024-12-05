@@ -32,11 +32,13 @@ class Game:
         self.current_guess["amount_of_dice"] = amount
                         
         return self.current_guess
-        
-        
+    
     def next_turn(self):
-        self.current_player_index = (self.current_player_index + 1) % len(self.players)
-        return self.players[self.current_player_index]     
+        while True:
+            self.current_player_index = (self.current_player_index + 1) % len(self.players)
+            if self.players[self.current_player_index].dice_count > 0:  # Hopper over spillere uten terninger
+                break
+        return self.players[self.current_player_index]
     
        #funkskjon for utfordringen
     def challenge(self):
