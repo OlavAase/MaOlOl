@@ -40,6 +40,18 @@ class Game:
                 break
         return self.players[self.current_player_index]
     
+    def game_over(self):
+        players_with_dice = [player for player in self.players if player.dice_count > 0]
+
+        if len(players_with_dice) == 1:
+            winner = players_with_dice[0]
+            print(f"\n🎉 Gratulerer, {winner.name} er den eneste som har terninger igjen og har derfor vunnet spillet! 🎉")
+            print("Takk for at du spilte! Ha en fin dag!")
+            exit()  # Avslutter programmet
+        
+            return True
+        return False
+
        #funkskjon for utfordringen
     def challenge(self):
         total_matching = sum(player.dice.count(self.current_guess["die_face"]) + player.dice.count(1) for player in self.players)
@@ -82,7 +94,7 @@ class Game:
                         time. sleep(2)
                         print(self.challenge())
                         challenge_happened = True
-                        break
+                    break
                 print("Det du skrev ble ikke akseptert. Svar G eller U")
 
 
@@ -106,6 +118,7 @@ def gameloop():
     gjett = 0
     #når runden starter trilles terningene og brukeren får oppgitt sine terninger
     while game_ongoing == True:
+        game.game_over()
         for player in players:
             player.roll_dice()
             print(f"{player.name}'s dice: {player.show_dice()}")
@@ -190,6 +203,6 @@ def gameloop():
             neste = input("trykk på (n) for å gå videre til nestemann")
             if neste == "n":
                 game.next_turn()
- 
+
 
 
