@@ -5,13 +5,13 @@ import time
 class Game: 
     def __init__(self, players):
         self.players = players
-        self.current_guess = {
+        self.current_guess = { #Nåværende gjett blir lagret i en ordnok
             "die_face": 0,
             "amount_of_dice": 0,
         }
         self.current_player_index = 0
 
-    def total_dice_left(self):
+    def total_dice_left(self): #Teller antall terninger alle spillerene har igjen
         total_dice = sum(player.dice_count for player in self.players)
         return total_dice
 
@@ -20,11 +20,11 @@ class Game:
         
         while face > 6 or face < 2: #Passer på at du tipper terningside mellom 2 og 6
             face = int(input("Fins ikke terningside du kan tippe på større en 6 eler mindre en 2. Hvilken terningside vil du tippe på? (1-6)"))
-        
+        #Passer på at hvis terningsiden du gjetter på er mindre en den nåværende terningsiden så må du tippe høyere antal terninger
         if face <= self.current_guess["die_face"]:
             while amount <= self.current_guess["amount_of_dice"] or amount <= 0: 
                 amount = int(input(f"Du må tippe et høyere antall terninger. Hvor mange {self.current_guess["die_face"]}ere tror du at det er?"))
-        else:
+        else: #Hvis terningsiden er større enn det nåværende gjettet så kan man gjette et ikt antall terninger
             while amount < self.current_guess["amount_of_dice"] or amount <= 0: 
                 amount = int(input(f"2Du må tippe et høyere antall terninger. Hvor mange {self.current_guess["die_face"]}ere tror du at det er?"))
         
@@ -35,7 +35,7 @@ class Game:
     
     def next_turn(self):
         while True:
-            self.current_player_index = (self.current_player_index + 1) % len(self.players)
+            self.current_player_index = (self.current_player_index + 1) % len(self.players)#Dette gjør at hvis player indeks aldri kan bli høyere enn indeksen til siste spilleren
             if self.players[self.current_player_index].dice_count > 0:  # Hopper over spillere uten terninger
                 break
         return self.players[self.current_player_index]
@@ -74,7 +74,7 @@ class Game:
           #funksjon for å la brukeren gjette antall av en bestemt terning
     def action_output(self):
         challenge_happened = False
-        if self.current_guess["die_face"] == 0 and self.current_guess["amount_of_dice"] == 0:
+        if self.current_guess["die_face"] == 0 and self.current_guess["amount_of_dice"] == 0: #Hvis du hr første gjett i en runde mådu gjette på antall terninger. Man kan ikke utfordre når forrige spiller ikke har gjettet
             face = int(input("Hvilken terningside vil du tippe på? (1-6)"))
             amount = int(input("Hvor mange av den terningen tror du at det er?"))
             self.guess(face, amount)
@@ -86,8 +86,7 @@ class Game:
                     if action == "g":
                         face = int(input("Hvilken terningside vil du tippe på? (1-6)"))
                         amount = int(input("Hvor mange av den terningen tror du at det er?"))
-                        print("player guess")
-                        print(self.guess(face, amount)) 
+                        self.guess(face, amount)
                         break   
                     else:
                         print("oi oi oi vi har en utfordring")
@@ -112,16 +111,16 @@ game = Game(players)
 def gameloop():
     print("\n")
 
-    game_ongoing = True
-    round_ongoing = True
-    spillrunde = 0
+    game_ongoing = True 
+    round_ongoing = True #Brukes for å stoppe en gjetterunde etter en challenge
+    spillrunde = 0 
     gjett = 0
     #når runden starter trilles terningene og brukeren får oppgitt sine terninger
     while game_ongoing == True:
         game.game_over()
         for player in players:
             player.roll_dice()
-            print(f"{player.name}'s dice: {player.show_dice()}")
+            print(f"{player.name}'s dice: {player.show_dice()}") #viser bare spilleren sine terninger
         print("\n")
         round_ongoing = True
         spillrunde += 1
@@ -136,17 +135,17 @@ def gameloop():
                 "---------------------------------------------------------------\n"
                 )
             #time. sleep() er en måte å delaye hva som printes i terminalen. noe som gjør det lettere for spilleren å få med seg hva som skjer i spillet.
-            time. sleep(2)
+            time. sleep(2) #Gjør at ting i terminalen skjer saktere så det er lettere å få med seg hva som skjer
             current_player = game.players[game.current_player_index]
             print(f"Det er {current_player.name} sin tur")
             print(f"Nåverende gjett er {game.current_guess["amount_of_dice"]} {game.current_guess["die_face"]}ere\n")
             if current_player.is_human == True:
                 print(f"Dette er {current_player.name} sine terninger: {current_player.dice}")
                 time. sleep(2)
-                challenged_happened = game.action_output()
+                challenged_happened = game.action_output() #Handling til spiller
                 gjett += 1
 
-                #avslutter runden dersom det har skjedd en utfordring
+                #avslutter runden dersom det har skjedd en utfordring og resetter det nåværende gjettet
                 if challenged_happened:
                     gjett = 0
                     round_ongoing = False
@@ -156,7 +155,7 @@ def gameloop():
         }
                     
                 
-            else:
+            else: #Computer sin tur
                 if game.current_guess["die_face"] == 0 and game.current_guess["amount_of_dice"] == 0:
                     game.guess(2, 1) 
                     gjett += 1
@@ -199,10 +198,10 @@ def gameloop():
                         gjett = 0
                         
             print("\n")
-            #knapp for å gå til nestemann i køen. gjør spillet mer oversiktlig for brukeren
-            neste = input("trykk på (n) for å gå videre til nestemann")
-            if neste == "n":
-                game.next_turn()
+            #knapp for å gå til nestemann i køen. gjør spillet mer oversiktlig for brukeren. (n gjør ingemting, men skal bare passe på at spiller får med seg hva som skjer)
+            neste = input("trykk på (n) for å gå videre til nestemann ")
+            
+            game.next_turn()
 
 
 
